@@ -9,9 +9,9 @@
                     "path": "Dockerfile"
                 }
             },
-            "image": "hello-world-1",
+            "image": "cimt",
             "service": {
-                "name": "hello-world-1",
+                "name": "cimt",
                 "containerPort": 8080,
                 "resources": {
                     "limits": {

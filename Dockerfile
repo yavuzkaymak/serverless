@@ -17,7 +17,16 @@ RUN echo "Go gcflags: ${SKAFFOLD_GO_GCFLAGS}"
 RUN go build -gcflags="${SKAFFOLD_GO_GCFLAGS}" -mod=readonly -v -o /app
 
 # Now create separate deployment image
-FROM vimagick/youtube-dl
+FROM python:3.9-slim-buster
+
+ENV TZ=Europe/Berlin
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo ${TZ} > /etc/timezone && \
+    apt-get update && apt-get install --no-install-recommends -y \
+    ffmpeg && \
+    pip install youtube-dl && \
+    rm -rf /var/lib/apt/lists/*
 
 # Definition of this variable is used by 'skaffold debug' to identify a golang binary.
 # Default behavior - a failure prints a stack trace for the current goroutine.

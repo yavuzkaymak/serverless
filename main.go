@@ -39,7 +39,7 @@ func downloader(w io.Writer, yurl string) error {
 	readout, writein := io.Pipe()
 	defer readout.Close()
 
-	youtuber := exec.Command("youtube-dl", yurl, "-o-")
+	youtuber := exec.Command("youtube-dl", yurl, "--no-check-certificate", "-o-")
 
 	youtuber.Stdout = writein
 	youtuber.Stderr = os.Stderr
